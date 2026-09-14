@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Secure password generator using browser-side cryptographic randomness."
+    >
+
+    <title>Secure Password Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div class="brand">
+                <div class="brand-icon">🔐</div>
+
+                <div>
+                    <h1>Password Generator</h1>
+                    <p>Secure • Private • No Database</p>
+                </div>
+            </div>
+
+            <button
+                id="themeToggle"
+                class="icon-button"
+                type="button"
+                aria-label="Toggle theme"
+                title="Toggle theme"
+            >
+                🌙
+            </button>
+
+        </header>
+
+
+        <!-- Main -->
+        <main class="main-content">
+
+            <!-- Generator Card -->
+            <section class="card generator-card">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Generate Password</h2>
+                        <p>Create a strong password locally in your browser.</p>
+                    </div>
+                </div>
+
+
+                <!-- Password Display -->
+                <div class="password-box">
+
+                    <input
+                        id="passwordOutput"
+                        type="text"
+                        value=""
+                        readonly
+                        aria-label="Generated password"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+                    <div class="password-actions">
+
+                        <button
+                            id="togglePassword"
+                            class="small-button"
+                            type="button"
+                            title="Show or hide password"
+                        >
+                            👁
+                        </button>
+
+                        <button
+                            id="copyPassword"
+                            class="small-button primary-small"
+                            type="button"
+                            title="Copy password"
+                        >
+                            📋
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Strength -->
+                <div class="strength-section">
+
+                    <div class="strength-top">
+
+                        <span>Password Strength</span>
+
+                        <strong id="strengthText">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="strength-bar">
+                        <div
+                            id="strengthFill"
+                            class="strength-fill"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Generator Options -->
+                <div class="options-grid">
+
+                    <!-- Length -->
+                    <div class="option full-width">
+
+                        <div class="option-header">
+
+                            <label for="length">
+                                Password Length
+                            </label>
+
+                            <span id="lengthValue">
+                                20
+                            </span>
+
+                        </div>
+
+                        <input
+                            id="length"
+                            class="range"
+                            type="range"
+                            min="4"
+                            max="128"
+                            value="20"
+                        >
+
+                    </div>
+
+
+                    <!-- Uppercase -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="uppercase"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>Uppercase</strong>
+                            <small>A-Z</small>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Lowercase -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="lowercase"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>Lowercase</strong>
+                            <small>a-z</small>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Numbers -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="numbers"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>Numbers</strong>
+                            <small>0-9</small>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Symbols -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="symbols"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>Symbols</strong>
+                            <small>!@#$%</small>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Ambiguous -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="ambiguous"
+                            type="checkbox"
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>Exclude Ambiguous</strong>
+                            <small>O, 0, I, l, 1</small>
+                        </span>
+
+                    </label>
+
+
+                    <!-- Repeating -->
+                    <label class="checkbox-option">
+
+                        <input
+                            id="noRepeats"
+                            type="checkbox"
+                        >
+
+                        <span class="custom-checkbox"></span>
+
+                        <span>
+                            <strong>No Consecutive Repeats</strong>
+                            <small>aa / 11 / @@</small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Generate -->
+                <button
+                    id="generateButton"
+                    class="generate-button"
+                    type="button"
+                >
+                    <span>⚡</span>
+                    Generate Secure Password
+                </button>
+
+
+                <!-- Password Information -->
+                <div class="password-info">
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Length
+                        </span>
+
+                        <strong id="infoLength">
+                            20
+                        </strong>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Character Set
+                        </span>
+
+                        <strong id="infoCharset">
+                            94
+                        </strong>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Estimated Entropy
+                        </span>
+
+                        <strong id="infoEntropy">
+                            131.1 bits
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Multiple Passwords -->
+            <section class="card multiple-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>Multiple Passwords</h2>
+                        <p>Generate several unique passwords at once.</p>
+                    </div>
+
+                    <select id="multipleCount">
+                        <option value="5">5 passwords</option>
+                        <option value="10">10 passwords</option>
+                        <option value="20">20 passwords</option>
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="generateMultiple"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Generate Multiple Passwords
+                </button>
+
+
+                <div
+                    id="multipleResults"
+                    class="multiple-results"
+                ></div>
+
+            </section>
+
+
+            <!-- History -->
+            <section class="card history-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>Password History</h2>
+                        <p>
+                            Temporary history for this browser session.
+                        </p>
+                    </div>
+
+                    <button
+                        id="clearHistory"
+                        class="danger-button"
+                        type="button"
+                    >
+                        Clear History
+                    </button>
+
+                </div>
+
+                <div id="historyList" class="history-list">
+
+                    <div class="empty-state">
+                        No generated passwords yet.
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+
+            <div>
+                🔒 Passwords are generated locally in your browser.
+            </div>
+
+            <div>
+                No password is sent to a server.
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <!-- Toast -->
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    >
+        Copied!
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
