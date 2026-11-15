@@ -1,25 +1,24 @@
 # BLSSNVJ21 Secure Password Generator
 
-A modern, responsive, installable password generator that runs entirely in the browser.
+A responsive, installable password generator with a restrained retro grey-and-white interface. Built with static HTML, CSS and vanilla JavaScript for GitHub Pages.
 
 ## Features
-- Cryptographically secure randomness with Web Crypto API and unbiased rejection sampling.
-- 8–128 character passwords.
+- Cryptographically secure randomness with the browser Web Crypto API and unbiased rejection sampling.
+- Password lengths from 8 to 128 characters.
 - Uppercase, lowercase, numbers and symbols.
-- Exclude ambiguous characters or custom characters.
-- Optional no-adjacent-repeat mode.
-- Real-time entropy estimate and strength indicator.
-- Bulk generation with one-click copy.
-- Dark/light mode and responsive UI.
-- Installable PWA with offline application shell.
-- No login, database, analytics, password history, or password transmission.
-- Only the theme preference is stored locally.
+- Exclude ambiguous or custom characters; optional adjacent-repeat restriction.
+- Entropy estimate and strength indicator.
+- Bulk password generation and clipboard copy.
+- Monochrome light/dark themes.
+- Installable PWA with an offline application shell.
+- No login, backend, database, analytics, external API, or password transmission.
+- Only the visual theme preference is stored locally; generated passwords are not saved.
 
-## Security
-Generated passwords use `crypto.getRandomValues()`. The app does not send or persist generated passwords. Entropy is an estimate based on the configured alphabet and length.
+## Run locally
+Open `index.html` in a modern browser. For service-worker/PWA testing, serve the folder from localhost or publish it on GitHub Pages.
 
-## Live demo
-https://password-generator-17j1.onrender.com/
+## Security notes
+Passwords are generated with `crypto.getRandomValues()`. The app does not send or persist generated passwords. The entropy value is an estimate based on password length and the configured character alphabet. Use a trusted password manager to store credentials.
 
 ## Files
 `index.html` · `style.css` · `script.js` · `manifest.webmanifest` · `sw.js` · `icon.svg`
